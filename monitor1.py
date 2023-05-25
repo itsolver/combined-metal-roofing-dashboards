@@ -15,6 +15,7 @@ chrome_options.add_argument('--kiosk')
 chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
 chrome_options.add_argument('--user-data-dir=C:\\monitor1')
 chrome_options.add_argument('--window-position=-1920,0') # Set window position
+chrome_options.add_argument('--silent')
 
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
@@ -33,14 +34,15 @@ try:
     print("Connect Team Page loaded successfully")
     # Detect if sign in is required (https://app.connecteam.com/index.html#/Login)
     if driver.current_url == 'https://app.connecteam.com/index.html#/Login':
-        print("Sign in required, entering Blair's mobile number")
+        print("Sign in required.")
         # Enter mobile number
         mobile_number = '415559155 ' # Replace with actual mobile number
         mobile_number_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'automation-phone-text-box')))
         mobile_number_input.send_keys(mobile_number)
+        print("Blair's Mobile number entered")
         # Hit enter
         mobile_number_input.send_keys(Keys.ENTER)
-
+        print("Enter key pressed")
     # Keep the browser open
     while True:
         time.sleep(1)

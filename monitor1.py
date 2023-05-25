@@ -9,8 +9,8 @@ import time
 
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument('--kiosk')
-# chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
+chrome_options.add_argument('--kiosk')
+chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
 chrome_options.add_argument('--user-data-dir=C:\\monitor1')
 chrome_options.add_argument('--window-position=-1920,0') # Set window position
 
@@ -19,19 +19,18 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 
 # use new window for debugging
-chrome_options.add_argument('--new-window https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
+# chrome_options.add_argument('--new-window https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
 
 # Set up the driver
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-# Your automation code goes here...
-
 # Sign in to Connecteam if not already signed in
 # Wait for the page to load
 WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-print("Page loaded successfully")
+print("Connect Team Page loaded successfully")
 # Detect if sign in is required (https://app.connecteam.com/index.html#/Login)
 if driver.current_url == 'https://app.connecteam.com/index.html#/Login':
+    print("Sign in required, entering Blair's mobile number")
     # Enter mobile number
     mobile_number = '415559155 ' # Replace with actual mobile number
     mobile_number_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'automation-phone-text-box')))

@@ -46,11 +46,9 @@ try:
     # Keep the browser open
     while True:
         time.sleep(1)
-
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
     print("Keyboard interrupt detected. Terminating the script...")
-
 finally:
     # Clean up and exit
     driver.quit()   # Quit the ChromeDriver instance

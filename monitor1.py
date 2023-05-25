@@ -42,14 +42,12 @@ try:
         # Hit enter
         mobile_number_input.send_keys(Keys.ENTER)
         print("Enter key pressed")
-    # Keep the browser open
-    while True:
-        time.sleep(1)
-
+        # Keep the browser open
+        while True:
+            time.sleep(1) 
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
     print("Keyboard interrupt detected. Terminating the script...")
-
 finally:
     # Clean up and exit
     driver.quit()   # Quit the ChromeDriver instance

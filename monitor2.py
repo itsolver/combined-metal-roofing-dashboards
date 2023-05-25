@@ -49,7 +49,6 @@ try:
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
     print("Keyboard interrupt detected. Terminating the script...")
-finally:
     # Clean up and exit
     driver.quit()   # Quit the ChromeDriver instance
     sys.exit(0)

@@ -1,3 +1,4 @@
+import sys
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -22,26 +23,35 @@ chrome_options.add_experimental_option('useAutomationExtension', False)
 # Set up the driver
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-# Your automation code goes here...
-# Wait for the page to load
-WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-print("Live Project Status Page loaded successfully")
+try:
+    # Wait for the page to load
+    WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
+    print("Live Project Status Page loaded successfully")
 
-# Switch to the first frame on the page
-driver.switch_to.frame(0)
+    # Switch to the first frame on the page
+    driver.switch_to.frame(0)
 
-# find element by ID O365_NavHeader
-nav = driver.find_element(By.ID, "RibbonModeToggle")
-print("Found RibbonModeToggle")
-# click on the element
-nav.click()
-print("Clicked RibbonModeToggle")
+    # find element by ID O365_NavHeader
+    nav = driver.find_element(By.ID, "RibbonModeToggle")
+    print("Found RibbonModeToggle")
+    # click on the element
+    nav.click()
+    print("Clicked RibbonModeToggle")
 
-#click on: #MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span
-hidemenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")
-print("Found Hide Menu")
-hidemenu.click()
-print("Clicked Hide Menu")
-# Keep the browser open
-while True:
-    time.sleep(1)
+    #click on: #MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span
+    hidemenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")
+    print("Found Hide Menu")
+    hidemenu.click()
+    print("Clicked Hide Menu")
+    # Keep the browser open
+    while True:
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    # Handle keyboard interrupt (Ctrl+C)
+    print("Keyboard interrupt detected. Terminating the script...")
+
+finally:
+    # Clean up and exit
+    driver.quit()   # Quit the ChromeDriver instance
+    sys.exit(0)

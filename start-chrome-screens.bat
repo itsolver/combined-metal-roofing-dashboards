@@ -1,0 +1,2 @@
+start chrome --kiosk --app="https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353" --window-position=-1920,0 --user-data-dir=C:\monitor1
+start chrome --kiosk --app="https://swroofing.sharepoint.com/:x:/r/Operations/Live%20Project%20Status.xlsx?d=we1b6b747158f4d568451c688c3517f83&csf=1&web=1&e=bJkYxd&nav=MTVfezhFNTVCODkzLTcxRkYtNEZEMi1CODZCLURFM0VFMjMyQTY3Mn0" --window-position=0,0 --user-data-dir=C:\monitor2

@@ -12,10 +12,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
 # Use new window for development
-chrome_options.add_argument('--new-window https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
-#chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
+chrome_options.add_argument('--new-window https://www.timeanddate.com/countdown/roadtrip?iso=20230627T00&p0=47&msg=Michael+gets+his+driver%27s+licence+back%21&font=cursive')
+#chrome_options.add_argument('--app=https://www.timeanddate.com/countdown/roadtrip?iso=20230627T00&p0=47&msg=Michael+gets+his+driver%27s+licence+back%21&font=cursive')
 chrome_options.add_argument('--user-data-dir=C:\\monitor1')
-chrome_options.add_argument('--window-position=0,1080') # Set window position
+chrome_options.add_argument('--window-position=1920,1080') # Set window position
 chrome_options.add_argument('--window-size=1920,1080') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])

@@ -11,7 +11,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--kiosk')
 chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/r/Operations/Live%20Project%20Status.xlsx?d=we1b6b747158f4d568451c688c3517f83&csf=1&web=1&e=bJkYxd&nav=MTVfezhFNTVCODkzLTcxRkYtNEZEMi1CODZCLURFM0VFMjMyQTY3Mn0')
 chrome_options.add_argument('--user-data-dir=C:\\monitor2')
-chrome_options.add_argument('--window-position=0,0') # Set window position
+chrome_options.add_argument('--window-position=3840,0') # Set window position
 
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])

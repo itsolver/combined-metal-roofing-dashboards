@@ -12,8 +12,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
 # Use new window for development
-chrome_options.add_argument('--new-window https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
-#chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
+#chrome_options.add_argument('--new-window https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
+chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
 chrome_options.add_argument('--user-data-dir=C:\\monitor1')
 chrome_options.add_argument('--window-position=0,0') # Set window position
 chrome_options.add_argument('--window-size=1920,2160') # Set window size

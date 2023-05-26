@@ -2,6 +2,7 @@
 
 : close all chrome and cmd instances
 taskkill /f /im chrome.exe
+taskkill /f /im cmd.exe /fi "pid ne %%"
 
 echo Syncing local repository with GitHub...
 cd C:\Users\dashboard-kiosk\AppData\Roaming\combined-metal-roofing-dashboards

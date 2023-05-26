@@ -52,7 +52,7 @@ try:
     print("Clicked Hide Menu")
     # Keep the browser open
     while True:
-        time.sleep(60)
+        time.sleep(300)
         driver.refresh()
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)

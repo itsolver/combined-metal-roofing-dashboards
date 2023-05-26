@@ -54,6 +54,18 @@ try:
     while True:
         time.sleep(300)
         driver.refresh()
+        showmenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")
+        print("Found Show Menu")
+        showmenu.click()
+        print("Clicked Show Menu")
+        # click on the element
+        nav.click()
+        print("Clicked RibbonModeToggle")
+
+        hidemenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")
+        print("Found Hide Menu")
+        hidemenu.click()
+        print("Clicked Hide Menu")
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
     print("Keyboard interrupt detected. Terminating the script...")

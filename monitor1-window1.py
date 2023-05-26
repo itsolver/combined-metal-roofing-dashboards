@@ -40,6 +40,7 @@ try:
         # Hit enter
         mobile_number_input.send_keys(Keys.ENTER)
         print("Enter key pressed")
+        # Keep the browser open
     while True:
         time.sleep(300)
         driver.refresh() # Refresh the Chrome window

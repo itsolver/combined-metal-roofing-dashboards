@@ -28,19 +28,9 @@ try:
     # Sign in to Connecteam if not already signed in
     # Wait for the page to load
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-    print("Connect Team Page loaded successfully")
-    # Detect if sign in is required (https://app.connecteam.com/index.html#/Login)
+    print("Michaels' count down loaded successfully")
     if driver.current_url == 'https://app.connecteam.com/index.html#/Login':
         print("Sign in required.")
-        # Enter mobile number
-        mobile_number = '415559155 ' # Replace with actual mobile number
-        mobile_number_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'automation-phone-text-box')))
-        mobile_number_input.send_keys(mobile_number)
-        print("Blair's Mobile number entered")
-        # Hit enter
-        mobile_number_input.send_keys(Keys.ENTER)
-        print("Enter key pressed")
-        # Keep the browser open
     while True:
         time.sleep(1) 
 except KeyboardInterrupt:

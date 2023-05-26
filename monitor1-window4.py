@@ -12,8 +12,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
 # Use new window for development
-chrome_options.add_argument('--new-window https://www.timeanddate.com/countdown/roadtrip?iso=20230627T00&p0=47&msg=Michael+gets+his+driver%27s+licence+back%21&font=cursive')
-#chrome_options.add_argument('--app=https://www.timeanddate.com/countdown/roadtrip?iso=20230627T00&p0=47&msg=Michael+gets+his+driver%27s+licence+back%21&font=cursive')
+chrome_options.add_argument('--new-window https://time-stuff.com/countdown-clock-embed-full-screen.html#date=1687788000000&title=Michael+gets+licence+back&msg=Hooray%2C+Michael+can+drive!')
+#chrome_options.add_argument('--app=https://time-stuff.com/countdown-clock-embed-full-screen.html#date=1687788000000&title=Michael+gets+licence+back&msg=Hooray%2C+Michael+can+drive!')
 chrome_options.add_argument('--user-data-dir=C:\\monitor1-window4')
 chrome_options.add_argument('--window-position=1920,1080') # Set window position
 chrome_options.add_argument('--window-size=1920,1080') # Set window size
@@ -29,8 +29,6 @@ try:
     # Wait for the page to load
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
     print("Michaels' count down loaded successfully")
-    if driver.current_url == 'https://app.connecteam.com/index.html#/Login':
-        print("Sign in required.")
     while True:
         time.sleep(1) 
 except KeyboardInterrupt:

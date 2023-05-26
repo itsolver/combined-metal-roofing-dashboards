@@ -24,38 +24,22 @@ chrome_options.add_experimental_option('useAutomationExtension', False)
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 try:
-    # Wait for the page to load
-    WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-    print("Live Project Status Page loaded successfully")
-
-    # Switch to the first frame on the page
-    driver.switch_to.frame(0)
-
-    # Force Ribbon to hide by clicking Always Show then Automatically Hide
-    nav = driver.find_element(By.ID, "RibbonModeToggle")
-    print("Found RibbonModeToggle")
-    # click on the element
-    nav.click()
-    print("Clicked RibbonModeToggle")
-
-    showmenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")
-    print("Found Show Menu")
-    showmenu.click()
-    print("Clicked Show Menu")
-    # click on the element
-    nav.click()
-    print("Clicked RibbonModeToggle")
-
-    hidemenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")
-    print("Found Hide Menu")
-    hidemenu.click()
-    print("Clicked Hide Menu")
     # Keep the browser open
     while True:
-        time.sleep(30)
-        driver.refresh()
+        # Wait for the page to load
+        WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
+        print("Live Project Status Page loaded successfully")
+
         # Switch to the first frame on the page
         driver.switch_to.frame(0)
+
+        # Force Ribbon to hide by clicking Always Show then Automatically Hide
+        nav = driver.find_element(By.ID, "RibbonModeToggle")
+        print("Found RibbonModeToggle")
+        # click on the element
+        nav.click()
+        print("Clicked RibbonModeToggle")
+
         showmenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")
         print("Found Show Menu")
         showmenu.click()
@@ -68,6 +52,8 @@ try:
         print("Found Hide Menu")
         hidemenu.click()
         print("Clicked Hide Menu")
+        time.sleep(30)
+        
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
     print("Keyboard interrupt detected. Terminating the script...")

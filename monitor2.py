@@ -52,8 +52,10 @@ try:
     print("Clicked Hide Menu")
     # Keep the browser open
     while True:
-        time.sleep(300)
+        time.sleep(30)
         driver.refresh()
+        # Switch to the first frame on the page
+        driver.switch_to.frame(0)
         showmenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")
         print("Found Show Menu")
         showmenu.click()

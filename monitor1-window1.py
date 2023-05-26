@@ -41,7 +41,7 @@ try:
         mobile_number_input.send_keys(Keys.ENTER)
         print("Enter key pressed")
     while True:
-        time.sleep(30)
+        time.sleep(60)
         driver.refresh() # Refresh the Chrome window
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)

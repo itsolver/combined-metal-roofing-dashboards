@@ -42,7 +42,7 @@ try:
         print("Enter key pressed")
         # Keep the browser open
     while True:
-        time.sleep(30) 
+        time.sleep(60) 
         driver.refresh() # Refresh the Chrome window
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)

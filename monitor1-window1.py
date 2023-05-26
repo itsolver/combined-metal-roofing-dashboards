@@ -40,9 +40,9 @@ try:
         # Hit enter
         mobile_number_input.send_keys(Keys.ENTER)
         print("Enter key pressed")
-        # Keep the browser open
     while True:
-        time.sleep(1) 
+        time.sleep(30)
+        driver.refresh() # Refresh the Chrome window
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
     print("Keyboard interrupt detected. Terminating the script...")

@@ -14,7 +14,7 @@ chrome_options = webdriver.ChromeOptions()
 # Use new window for development
 chrome_options.add_argument('--new-window https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
 #chrome_options.add_argument('--app=https://app.connecteam.com/index.html#/index/shift-scheduler/shiftscheduler/1238353')
-chrome_options.add_argument('--user-data-dir=C:\\monitor1')
+chrome_options.add_argument('--user-data-dir=C:\\monitor1-window3')
 chrome_options.add_argument('--window-position=0,1080') # Set window position
 chrome_options.add_argument('--window-size=1920,1080') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification

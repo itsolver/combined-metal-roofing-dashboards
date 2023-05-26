@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--kiosk')
-chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/r/Operations/Live%20Project%20Status.xlsx?d=we1b6b747158f4d568451c688c3517f83&csf=1&web=1&e=bJkYxd&nav=MTVfezhFNTVCODkzLTcxRkYtNEZEMi1CODZCLURFM0VFMjMyQTY3Mn0')
+chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/g/Edj-N_p-SY9Hs0gk1aQkaE0BhsBm0DKXYZqfhDx9Yc_-_g?e=u99p7B&nav=MTVfezA5MzgzQkQ5LUNDQUYtNEVGMS05NzFDLUY0NUJEQjI2MkMzOX0')
 chrome_options.add_argument('--user-data-dir=C:\\monitor2')
 chrome_options.add_argument('--window-position=3840,0') # Set window position
 
@@ -18,7 +18,7 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 
 # use new window for debugging
-#chrome_options.add_argument('--new-window https://swroofing.sharepoint.com/:x:/r/Operations/Live%20Project%20Status.xlsx?d=we1b6b747158f4d568451c688c3517f83&csf=1&web=1&e=bJkYxd&nav=MTVfezhFNTVCODkzLTcxRkYtNEZEMi1CODZCLURFM0VFMjMyQTY3Mn0')
+#chrome_options.add_argument('--new-window https://swroofing.sharepoint.com/:x:/g/Edj-N_p-SY9Hs0gk1aQkaE0BhsBm0DKXYZqfhDx9Yc_-_g?e=u99p7B&nav=MTVfezA5MzgzQkQ5LUNDQUYtNEVGMS05NzFDLUY0NUJEQjI2MkMzOX0')
 
 # Set up the driver
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)

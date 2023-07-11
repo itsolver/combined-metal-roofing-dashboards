@@ -1,10 +1,15 @@
 import sys
 import time
+import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+
+# Setup logging configuration
+logging.basicConfig(filename='monitor2.log', level=logging.DEBUG, 
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
@@ -17,46 +22,55 @@ chrome_options.add_argument('--window-position=3840,0') # Set window position
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 
-# use new window for debugging
-#chrome_options.add_argument('--new-window https://swroofing.sharepoint.com/:x:/g/Edj-N_p-SY9Hs0gk1aQkaE0BhsBm0DKXYZqfhDx9Yc_-_g?e=u99p7B&nav=MTVfezA5MzgzQkQ5LUNDQUYtNEVGMS05NzFDLUY0NUJEQjI2MkMzOX0')
+logging.debug('Chrome options set.')
 
 # Set up the driver
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 try:
-    # Wait for the page to load
+    logging.info('Trying to load page...')
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-    print("Live Project Status Page loaded successfully")
+    logging.info("Live Project Status Page loaded successfully")
 
     # Switch to the first frame on the page
+    logging.debug('Trying to switch to the first frame...')
     driver.switch_to.frame(0)
 
     # Force Ribbon to hide by clicking Always Show then Automatically Hide
+    logging.debug('Trying to find RibbonModeToggle...')
     nav = driver.find_element(By.ID, "RibbonModeToggle")
-    print("Found RibbonModeToggle")
-    # click on the element
-    nav.click()
-    print("Clicked RibbonModeToggle")
 
+    # click on the element
+    logging.debug('Trying to click on RibbonModeToggle...')
+    nav.click()
+
+    logging.debug('Trying to find Show Menu...')
     showmenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")
-    print("Found Show Menu")
-    showmenu.click()
-    print("Clicked Show Menu")
-    # click on the element
-    nav.click()
-    print("Clicked RibbonModeToggle")
 
+    logging.debug('Trying to click on Show Menu...')
+    showmenu.click()
+
+    logging.debug('Trying to click on RibbonModeToggle again...')
+    nav.click()
+
+    logging.debug('Trying to find Hide Menu...')
     hidemenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")
-    print("Found Hide Menu")
+
+    logging.debug('Trying to click on Hide Menu...')
     hidemenu.click()
-    print("Clicked Hide Menu")
+
     # Keep the browser open
     while True:
         time.sleep(600)
         driver.refresh()
 except KeyboardInterrupt:
     # Handle keyboard interrupt (Ctrl+C)
-    print("Keyboard interrupt detected. Terminating the script...")
+    logging.info("Keyboard interrupt detected. Terminating the script...")
+
     # Clean up and exit
     driver.quit()   # Quit the ChromeDriver instance
     sys.exit(0)
+except Exception as e:
+    logging.error(f"An error occurred: {str(e)}", exc_info=True)
+    driver.quit()   # Quit the ChromeDriver instance
+    sys.exit(1)

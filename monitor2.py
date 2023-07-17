@@ -13,12 +13,13 @@ logging.basicConfig(filename='monitor2.log', level=logging.DEBUG,
 
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--kiosk')
+
 chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/g/Edj-N_p-SY9Hs0gk1aQkaE0BhsBm0DKXYZqfhDx9Yc_-_g?e=u99p7B&nav=MTVfezA5MzgzQkQ5LUNDQUYtNEVGMS05NzFDLUY0NUJEQjI2MkMzOX0')
 chrome_options.add_argument('--user-data-dir=C:\\monitor2')
 chrome_options.add_argument('--window-position=0,0') # Set window position for monitor 1
 # chrome_options.add_argument('--window-position=3840,0') # Set window position for monitor 2
-
+# chrome_options.add_argument('--kiosk')
+chrome_options.add_argument('--window-size=3840,2160') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
@@ -33,12 +34,12 @@ try:
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
     logging.info("Live Project Status Page loaded successfully")
 
+    # Pause script until a key is pressed
+    input("Press any key to continue...")
+
     # Switch to the first frame on the page
     logging.debug('Trying to switch to the first frame...')
     driver.switch_to.frame(0)
-
-    # Pause script until a key is pressed
-    input("Press any key to continue...")
 
     # Force Ribbon to hide by clicking Always Show then Automatically Hide
     logging.debug('Trying to find RibbonModeToggle...')

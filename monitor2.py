@@ -36,16 +36,10 @@ try:
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
     logging.info("Live Project Status Page loaded successfully")
 
-    wait = WebDriverWait(driver, 10)  # wait up to 10 seconds
-
-    # Pause script until a key is pressed
-    input("Press any key to continue...")
-
     # Switch to the first frame on the page
     logging.debug('Trying to switch to the first frame...')
-    wait = WebDriverWait(driver, 10)  # wait up to 10 seconds
+    wait = WebDriverWait(driver, 60)  # wait up to 60 seconds
     frame = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-
     driver.switch_to.frame(frame)
 
     # Force Ribbon to hide by clicking Always Show then Automatically Hide

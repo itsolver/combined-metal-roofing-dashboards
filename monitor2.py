@@ -36,8 +36,8 @@ chrome_options = webdriver.ChromeOptions()
 
 chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/g/Edj-N_p-SY9Hs0gk1aQkaE0BhsBm0DKXYZqfhDx9Yc_-_g?e=u99p7B&nav=MTVfezA5MzgzQkQ5LUNDQUYtNEVGMS05NzFDLUY0NUJEQjI2MkMzOX0')
 chrome_options.add_argument('--user-data-dir=C:\\monitor2')
-chrome_options.add_argument('--window-position=0,0') # Set window position for monitor 1
-# chrome_options.add_argument('--window-position=3840,0') # Set window position for monitor 2
+#chrome_options.add_argument('--window-position=0,0') # Set window position for monitor 1
+chrome_options.add_argument('--window-position=3840,0') # Set window position for monitor 2
 chrome_options.add_argument('--kiosk') # disable kiosk while troubleshooting
 #chrome_options.add_argument('--window-size=3840,2160') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification

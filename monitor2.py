@@ -14,7 +14,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 # Setup logging configuration
-logging.basicConfig(filename='monitor2.log', level=logging.DEBUG,
+logging.basicConfig(filename='monitor2.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Set up Chrome options
@@ -40,35 +40,35 @@ try:
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
     logging.info("Live Project Status Page loaded successfully")
 
-    # Switch to the first frame on the page
-    logging.debug('Trying to switch to the first frame...')
-    wait = WebDriverWait(driver, 60)  # wait up to 60 seconds
-    frame = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-    driver.switch_to.frame(frame)
+    # # Switch to the first frame on the page
+    # logging.debug('Trying to switch to the first frame...')
+    # wait = WebDriverWait(driver, 60)  # wait up to 60 seconds
+    # frame = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+    # driver.switch_to.frame(frame)
 
-    # Force Ribbon to hide by clicking Always Show then Automatically Hide
-    logging.debug('Trying to find RibbonModeToggle...')
-    ribbon_model_toggle = wait.until(EC.presence_of_element_located((By.ID, 'RibbonModelToggle')))
+    # # Force Ribbon to hide by clicking Always Show then Automatically Hide
+    # logging.debug('Trying to find RibbonModeToggle...')
+    # ribbon_model_toggle = wait.until(EC.presence_of_element_located((By.ID, 'RibbonModelToggle')))
 
-    # click on the element
-    logging.debug('Trying to click on RibbonModeToggle...')
-    ribbon_model_toggle.click()
+    # # click on the element
+    # logging.debug('Trying to click on RibbonModeToggle...')
+    # ribbon_model_toggle.click()
 
-    logging.debug('Trying to find Show Menu...')
-    showmenu = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")))
+    # logging.debug('Trying to find Show Menu...')
+    # showmenu = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")))
 
 
-    logging.debug('Trying to click on Show Menu...')
-    showmenu.click()
+    # logging.debug('Trying to click on Show Menu...')
+    # showmenu.click()
 
-    logging.debug('Trying to click on RibbonModeToggle again...')
-    ribbon_model_toggle.click()
+    # logging.debug('Trying to click on RibbonModeToggle again...')
+    # ribbon_model_toggle.click()
 
-    logging.debug('Trying to find Hide Menu...')
-    hidemenu =  wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")))
+    # logging.debug('Trying to find Hide Menu...')
+    # hidemenu =  wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")))
 
-    logging.debug('Trying to click on Hide Menu...')
-    hidemenu.click()
+    # logging.debug('Trying to click on Hide Menu...')
+    # hidemenu.click()
 
     # Keep the browser open
     while True:

@@ -24,8 +24,8 @@ chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/g/Edj-N_
 chrome_options.add_argument('--user-data-dir=C:\\monitor2')
 chrome_options.add_argument('--window-position=0,0') # Set window position for monitor 1
 # chrome_options.add_argument('--window-position=3840,0') # Set window position for monitor 2
-# chrome_options.add_argument('--kiosk') # disable kiosk while troubleshooting
-chrome_options.add_argument('--window-size=3840,2160') # Set window size
+chrome_options.add_argument('--kiosk') # disable kiosk while troubleshooting
+#chrome_options.add_argument('--window-size=3840,2160') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)

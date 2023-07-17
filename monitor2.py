@@ -5,7 +5,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
+
 
 # Setup logging configuration
 logging.basicConfig(filename='monitor2.log', level=logging.DEBUG, 
@@ -18,7 +20,7 @@ chrome_options.add_argument('--app=https://swroofing.sharepoint.com/:x:/g/Edj-N_
 chrome_options.add_argument('--user-data-dir=C:\\monitor2')
 chrome_options.add_argument('--window-position=0,0') # Set window position for monitor 1
 # chrome_options.add_argument('--window-position=3840,0') # Set window position for monitor 2
-# chrome_options.add_argument('--kiosk')
+# chrome_options.add_argument('--kiosk') # disable kiosk while troubleshooting
 chrome_options.add_argument('--window-size=3840,2160') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
@@ -34,12 +36,17 @@ try:
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')
     logging.info("Live Project Status Page loaded successfully")
 
+    wait = WebDriverWait(driver, 10)  # wait up to 10 seconds
+
     # Pause script until a key is pressed
     input("Press any key to continue...")
 
     # Switch to the first frame on the page
     logging.debug('Trying to switch to the first frame...')
-    driver.switch_to.frame(0)
+    wait = WebDriverWait(driver, 10)  # wait up to 10 seconds
+    frame = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+
+    driver.switch_to.frame(frame)
 
     # Force Ribbon to hide by clicking Always Show then Automatically Hide
     logging.debug('Trying to find RibbonModeToggle...')

@@ -1,3 +1,6 @@
+"""
+This script is used to open a Chrome browser window on the second monitor.
+"""
 import sys
 import time
 import logging
@@ -6,11 +9,12 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import WebDriverException, TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 
 
 # Setup logging configuration
-logging.basicConfig(filename='monitor2.log', level=logging.DEBUG, 
+logging.basicConfig(filename='monitor2.log', level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Set up Chrome options
@@ -44,23 +48,24 @@ try:
 
     # Force Ribbon to hide by clicking Always Show then Automatically Hide
     logging.debug('Trying to find RibbonModeToggle...')
-    nav = driver.find_element(By.ID, "RibbonModeToggle")
+    ribbon_model_toggle = wait.until(EC.presence_of_element_located((By.ID, 'RibbonModelToggle')))
 
     # click on the element
     logging.debug('Trying to click on RibbonModeToggle...')
-    nav.click()
+    ribbon_model_toggle.click()
 
     logging.debug('Trying to find Show Menu...')
-    showmenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")
+    showmenu = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(2) > button > div > span")))
+
 
     logging.debug('Trying to click on Show Menu...')
     showmenu.click()
 
     logging.debug('Trying to click on RibbonModeToggle again...')
-    nav.click()
+    ribbon_model_toggle.click()
 
     logging.debug('Trying to find Hide Menu...')
-    hidemenu = driver.find_element(By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")
+    hidemenu =  wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#MultilineRibbon-RibbonModeToggleDropdown > div > ul > li:nth-child(3) > div > ul > li:nth-child(3) > button > div > span")))
 
     logging.debug('Trying to click on Hide Menu...')
     hidemenu.click()
@@ -76,7 +81,10 @@ except KeyboardInterrupt:
     # Clean up and exit
     driver.quit()   # Quit the ChromeDriver instance
     sys.exit(0)
-except Exception as e:
-    logging.error(f"An error occurred: {str(e)}", exc_info=True)
+except WebDriverException as e:
+    if isinstance(e, TimeoutException):
+        logging.error("A TimeoutException occurred: %s", str(e), exc_info=True)
+    else:
+        logging.error("A WebDriverException occurred: %s", str(e), exc_info=True)
     driver.quit()   # Quit the ChromeDriver instance
     sys.exit(1)

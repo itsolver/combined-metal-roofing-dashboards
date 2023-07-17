@@ -4,18 +4,32 @@ This script is used to open a Chrome browser window on the second monitor.
 import sys
 import time
 import logging
+from logging.handlers import RotatingFileHandler
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
+#from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import WebDriverException, TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# Setup logging configuration
-logging.basicConfig(filename='monitor2.log', level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+# Set up a logger
+logger = logging.getLogger('monitor2')
+
+# Set the log level
+logger.setLevel(logging.INFO)
+
+# Create a rotating file handler that logs even debug messages
+handler = RotatingFileHandler('monitor2.log', maxBytes=20000, backupCount=5)
+handler.setLevel(logging.INFO)
+
+# Create a formatter and add it to the handler
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# Add the handler to the logger
+logger.addHandler(handler)
 
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()

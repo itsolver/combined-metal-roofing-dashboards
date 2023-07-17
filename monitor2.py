@@ -31,6 +31,9 @@ try:
     # Switch to the first frame on the page
     driver.switch_to.frame(0)
 
+    # Pause script until a key is pressed
+    input("Press any key to continue...")
+
     # Force Ribbon to hide by clicking Always Show then Automatically Hide
     nav = driver.find_element(By.ID, "RibbonModeToggle")
     print("Found RibbonModeToggle")

@@ -1,9 +1,9 @@
 @echo off
 
 : close all chrome and cmd instances
-taskkill /f /im chrome.exe
-taskkill /f /im chromedriver.exe
-taskkill /f /im cmd.exe /fi "pid ne %%"
+taskkill /f /im chrome.exe >nul 2>&1
+taskkill /f /im chromedriver.exe >nul 2>&1
+taskkill /f /im cmd.exe /fi "pid ne %%" >nul 2>&1
 
 echo Syncing local repository with GitHub...
 cd C:\Users\dashboard-kiosk\AppData\Roaming\combined-metal-roofing-dashboards

@@ -8,10 +8,14 @@ taskkill /f /im cmd.exe /fi "pid ne %%" >nul 2>&1
 echo Syncing local repository with GitHub...
 cd C:\Users\dashboard-kiosk\AppData\Roaming\combined-metal-roofing-dashboards
 git pull
+git checkout run_both_screens.bat
+git checkout monitor1-window1.py
+git checkout monitor1-window2.py
+git checkout monitor2.py
+git checkout requirements.txt
 ping 127.0.0.1 -n 5 > nul
 
 echo Running automation script...
 start "" cmd /k "C:\Users\dashboard-kiosk\AppData\Local\Programs\Python\Python311\python.exe C:\Users\dashboard-kiosk\AppData\Roaming\combined-metal-roofing-dashboards\monitor2.py"
 start "" cmd /k "C:\Users\dashboard-kiosk\AppData\Local\Programs\Python\Python311\python.exe C:\Users\dashboard-kiosk\AppData\Roaming\combined-metal-roofing-dashboards\monitor1-window1.py"
 start "" cmd /k "C:\Users\dashboard-kiosk\AppData\Local\Programs\Python\Python311\python.exe C:\Users\dashboard-kiosk\AppData\Roaming\combined-metal-roofing-dashboards\monitor1-window2.py"
-

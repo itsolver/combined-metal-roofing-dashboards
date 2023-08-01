@@ -47,7 +47,7 @@ chrome_options.add_experimental_option('useAutomationExtension', False)
 logging.debug('Chrome options set.')
 
 # Set up the driver
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager("115.0.5790.110").install()), options=chrome_options)
 
 try:
     logging.info('Trying to load page...')

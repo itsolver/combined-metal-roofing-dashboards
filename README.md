@@ -21,6 +21,23 @@ While we won't be using Windows Kiosk mode, we do use their preparation guide to
 - `monitor2.py`: This Python script uses Selenium to automate actions in Chrome.
 - `run_automation.bat`: This batch file runs the Python script. It should be placed in the Startup folder to run the script at system startup.
 
+## Virtual Environment and Dependencies Setup
+
+### Create a virtual environment
+python -m venv env
+
+### Activate the virtual environment 
+#### Unix or MacOS
+source env/bin/activate 
+#### Windows
+.\env\Scripts\activate 
+
+### Install dependencies from the requirements.txt file
+pip install -r requirements.txt
+
+## Install Chrome and disable updates
+https://support.google.com/chrome/a/answer/6350036?hl=en#zippy=%2Cturn-off-chrome-browser-updates
+
 ## Setup
 
 1. Download or clone this repository to your local system.

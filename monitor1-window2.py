@@ -22,7 +22,7 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 
 # Set up the driver
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager("115.0.5790.110").install()), options=chrome_options)
 
 try:
     # Sign in to Connecteam if not already signed in

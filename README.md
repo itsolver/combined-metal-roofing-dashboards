@@ -38,6 +38,10 @@ pip install -r requirements.txt
 ## Install Chrome and disable updates
 https://support.google.com/chrome/a/answer/6350036?hl=en#zippy=%2Cturn-off-chrome-browser-updates
 
+## Update the python script to reflect the chrome browser version installed on the computer
+``driver = webdriver.Chrome(service=Service(ChromeDriverManager("115.0.5790.110").install()), options=chrome_options)``
+
+
 ## Setup
 
 1. Download or clone this repository to your local system.

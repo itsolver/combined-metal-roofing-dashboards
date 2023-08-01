@@ -26,11 +26,13 @@ While we won't be using Windows Kiosk mode, we do use their preparation guide to
 ### Create a virtual environment
 python -m venv env
 
-### Activate the virtual environment 
+### Activate the virtual environment
+
 #### Unix or MacOS
 source env/bin/activate 
+
 #### Windows
-.\env\Scripts\activate 
+.\env\Scripts\activate.bat
 
 ### Install dependencies from the requirements.txt file
 pip install -r requirements.txt

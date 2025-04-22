@@ -15,6 +15,10 @@ git checkout monitor2.py
 git checkout requirements.txt
 ping 127.0.0.1 -n 5 > nul
 
+echo Cleaning up and updating ChromeDriver...
+del /f /q chromedriver.exe >nul 2>&1
+env\Scripts\python.exe -c "from webdriver_manager.chrome import ChromeDriverManager, ChromeType; ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()"
+
 echo Running automation script...
 start "" cmd /k "env\Scripts\python.exe monitor2.py"
 start "" cmd /k "env\Scripts\python.exe monitor1-window1.py"

@@ -37,86 +37,16 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 chrome_options.add_argument('--no-first-run')
 
-def set_executable_permissions(file_path):
-    """Set executable permissions on the ChromeDriver file."""
-    try:
-        # Make the file executable
-        os.chmod(file_path, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
-        logger.info(f"Set executable permissions on {file_path}")
-    except Exception as e:
-        logger.error(f"Failed to set permissions on {file_path}: {str(e)}")
-        raise
-
-def cleanup_chromedriver():
-    """Clean up any existing ChromeDriver files and processes."""
-    try:
-        # Kill any existing ChromeDriver processes
-        os.system('taskkill /f /im chromedriver.exe')
-        time.sleep(1)  # Give it time to terminate
-        
-        # Clean up ChromeDriver files in common locations
-        cleanup_paths = [
-            "chromedriver.exe",
-            os.path.join(os.getcwd(), "chromedriver.exe"),
-            os.path.join(os.path.expanduser("~"), ".wdm", "drivers", "chromedriver")
-        ]
-        
-        for path in cleanup_paths:
-            try:
-                if os.path.isfile(path):
-                    os.remove(path)
-                    logger.info(f"Removed file: {path}")
-                elif os.path.isdir(path):
-                    shutil.rmtree(path, ignore_errors=True)
-                    logger.info(f"Removed directory: {path}")
-            except Exception as e:
-                logger.warning(f"Failed to clean up {path}: {str(e)}")
-    except Exception as e:
-        logger.error(f"Error during cleanup: {str(e)}")
-
-# Function to download ChromeDriver with retries and architecture detection
-def get_chromedriver_with_retries(max_attempts=3, delay=5):
-    attempt = 1
-    while attempt <= max_attempts:
-        try:
-            logger.info(f"Attempt {attempt} to download ChromeDriver...")
-            # Detect system architecture
-            system_arch = platform.architecture()[0]
-            logger.info(f"System architecture: {system_arch}")
-            
-            # Clean up existing ChromeDriver files and processes
-            cleanup_chromedriver()
-            
-            # Download ChromeDriver with architecture-specific settings
-            driver_path = ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()
-            logger.info(f"ChromeDriver downloaded successfully to: {driver_path}")
-            
-            # Verify the downloaded file exists and set permissions
-            if not os.path.exists(driver_path):
-                raise FileNotFoundError(f"ChromeDriver not found at {driver_path}")
-            
-            # Set executable permissions
-            set_executable_permissions(driver_path)
-                
-            return driver_path
-        except Exception as e:
-            logger.error(f"Failed to download ChromeDriver on attempt {attempt}: {str(e)}")
-            if attempt == max_attempts:
-                logger.error("Max attempts reached. Exiting...")
-                raise
-            time.sleep(delay)
-            attempt += 1
-
-# Set up the driver with retry logic
+# Set up the driver
 try:
-    driver_path = get_chromedriver_with_retries()
-    service = Service(driver_path)
+    service = Service("chromedriver.exe")
     driver = webdriver.Chrome(service=service, options=chrome_options)
     logger.info("ChromeDriver initialized successfully")
 except Exception as e:
     logger.error(f"Failed to initialize ChromeDriver: {str(e)}")
     sys.exit(1)
 
+# Main script
 try:
     # Wait for the page to load
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')

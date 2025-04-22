@@ -20,10 +20,10 @@ chrome_options.add_argument('--window-size=1920,2160') # Set window size
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
+chrome_options.add_argument('--no-first-run')
 
 # Set up the driver
-driver = webdriver.Chrome(service=Service(ChromeDriverManager("115.0.5790.110").install()), options=chrome_options)
-
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 try:
     # Sign in to Connecteam if not already signed in
     # Wait for the page to load

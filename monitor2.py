@@ -43,12 +43,12 @@ chrome_options.add_argument('--kiosk') # disable kiosk while troubleshooting
 # Hide "Chrome is being controlled by automated test software" notification
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
+chrome_options.add_argument('--no-first-run')
 
 logging.debug('Chrome options set.')
 
 # Set up the driver
-driver = webdriver.Chrome(service=Service(ChromeDriverManager("115.0.5790.110").install()), options=chrome_options)
-
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 try:
     logging.info('Trying to load page...')
     WebDriverWait(driver, 60).until(lambda d: d.execute_script('return document.readyState') == 'complete')

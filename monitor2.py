@@ -39,7 +39,7 @@ chrome_options.add_argument('--no-first-run')
 
 # Set up the driver
 try:
-    service = Service("chromedriver.exe")
+    service = Service(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     logger.info("ChromeDriver initialized successfully")
 except Exception as e:

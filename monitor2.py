@@ -6,6 +6,8 @@ import time
 import logging
 import platform
 import os
+import stat
+import shutil
 from logging.handlers import RotatingFileHandler
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -35,6 +37,43 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 chrome_options.add_argument('--no-first-run')
 
+def set_executable_permissions(file_path):
+    """Set executable permissions on the ChromeDriver file."""
+    try:
+        # Make the file executable
+        os.chmod(file_path, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+        logger.info(f"Set executable permissions on {file_path}")
+    except Exception as e:
+        logger.error(f"Failed to set permissions on {file_path}: {str(e)}")
+        raise
+
+def cleanup_chromedriver():
+    """Clean up any existing ChromeDriver files and processes."""
+    try:
+        # Kill any existing ChromeDriver processes
+        os.system('taskkill /f /im chromedriver.exe')
+        time.sleep(1)  # Give it time to terminate
+        
+        # Clean up ChromeDriver files in common locations
+        cleanup_paths = [
+            "chromedriver.exe",
+            os.path.join(os.getcwd(), "chromedriver.exe"),
+            os.path.join(os.path.expanduser("~"), ".wdm", "drivers", "chromedriver")
+        ]
+        
+        for path in cleanup_paths:
+            try:
+                if os.path.isfile(path):
+                    os.remove(path)
+                    logger.info(f"Removed file: {path}")
+                elif os.path.isdir(path):
+                    shutil.rmtree(path, ignore_errors=True)
+                    logger.info(f"Removed directory: {path}")
+            except Exception as e:
+                logger.warning(f"Failed to clean up {path}: {str(e)}")
+    except Exception as e:
+        logger.error(f"Error during cleanup: {str(e)}")
+
 # Function to download ChromeDriver with retries and architecture detection
 def get_chromedriver_with_retries(max_attempts=3, delay=5):
     attempt = 1
@@ -45,20 +84,19 @@ def get_chromedriver_with_retries(max_attempts=3, delay=5):
             system_arch = platform.architecture()[0]
             logger.info(f"System architecture: {system_arch}")
             
-            # Clean up any existing ChromeDriver files
-            try:
-                if os.path.exists("chromedriver.exe"):
-                    os.remove("chromedriver.exe")
-            except Exception as e:
-                logger.warning(f"Failed to clean up existing ChromeDriver: {str(e)}")
+            # Clean up existing ChromeDriver files and processes
+            cleanup_chromedriver()
             
             # Download ChromeDriver with architecture-specific settings
             driver_path = ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()
             logger.info(f"ChromeDriver downloaded successfully to: {driver_path}")
             
-            # Verify the downloaded file exists and is executable
+            # Verify the downloaded file exists and set permissions
             if not os.path.exists(driver_path):
                 raise FileNotFoundError(f"ChromeDriver not found at {driver_path}")
+            
+            # Set executable permissions
+            set_executable_permissions(driver_path)
                 
             return driver_path
         except Exception as e:

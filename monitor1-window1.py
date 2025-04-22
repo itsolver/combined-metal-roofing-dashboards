@@ -1,13 +1,22 @@
 import time
 import sys
+import logging
+from logging.handlers import RotatingFileHandler
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.chrome import ChromeDriverManager, ChromeType
 
+# Set up logging for monitor1-window1.py and monitor1-window2.py
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = RotatingFileHandler('monitor1.log', maxBytes=20000, backupCount=5)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 # Set up Chrome options
 chrome_options = webdriver.ChromeOptions()
@@ -22,9 +31,32 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 chrome_options.add_argument('--no-first-run')
 
-# Set up the driver
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+# Function to download ChromeDriver with retries
+def get_chromedriver_with_retries(max_attempts=3, delay=5):
+    attempt = 1
+    while attempt <= max_attempts:
+        try:
+            logger.info(f"Attempt {attempt} to download ChromeDriver...")
+            driver_path = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            logger.info("ChromeDriver downloaded successfully.")
+            return driver_path
+        except Exception as e:
+            logger.error(f"Failed to download ChromeDriver on attempt {attempt}: {str(e)}")
+            if attempt == max_attempts:
+                logger.error("Max attempts reached. Exiting...")
+                raise
+            time.sleep(delay)
+            attempt += 1
 
+# Set up the driver with retry logic
+try:
+    driver_path = get_chromedriver_with_retries()
+    driver = webdriver.Chrome(service=Service(driver_path), options=chrome_options)
+except Exception as e:
+    logger.error(f"Failed to initialize ChromeDriver: {str(e)}")
+    sys.exit(1)
+
+# Main script
 try:
     # Sign in to Connecteam if not already signed in
     # Wait for the page to load

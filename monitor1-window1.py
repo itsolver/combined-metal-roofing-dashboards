@@ -37,7 +37,7 @@ def get_chromedriver_with_retries(max_attempts=3, delay=5):
     while attempt <= max_attempts:
         try:
             logger.info(f"Attempt {attempt} to download ChromeDriver...")
-            driver_path = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            driver_path = ChromeDriverManager().install()
             logger.info("ChromeDriver downloaded successfully.")
             return driver_path
         except Exception as e:
@@ -67,7 +67,7 @@ try:
         print("Sign in required.")
         # Enter mobile number
         mobile_number = '415559155 ' # Replace with actual mobile number
-        mobile_number_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'automation-phone-text-box')))
+        mobile_number_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'ct-phone-input-control')))
         mobile_number_input.send_keys(mobile_number)
         print("Blair's Mobile number entered")
         # Hit enter
